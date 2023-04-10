@@ -60,9 +60,16 @@ export class PeliculasService {
     return newMovie;
   }
 
+ 
   deleteMovie(id: string) {
-    this.movies = this.movies.filter((movie) => movie.id !== id);
-    this.writeCsv();
+    let result = this.movies.filter((movie) => movie.id !== id);
+     if (result.length != this.movies.length) {
+      this.movies = result;
+      this.writeCsv();
+      return 'ok';
+    } else {
+      return '404 not found';
+    }
   }
 
   writeCsv() {
